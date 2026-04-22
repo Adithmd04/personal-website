@@ -4,17 +4,8 @@ import { motion, type Variants } from "framer-motion";
 import { ArrowRight, Download, Sparkles } from "lucide-react";
 import { data } from "@/assets/personalDetails";
 
-const techStack = [
-  "React",
-  "Next.js",
-  "TypeScript",
-  "Tailwind CSS",
-  "Git",
-  "Figma",
-];
-
 const codeLines = [
-  { key: "const", mid: " developer", rest: " = {" },
+  { key: "const\u00A0", mid: " developer", rest: " = {" },
   {
     key: "  name:",
     mid: "",
@@ -184,7 +175,7 @@ export default function HeroSection() {
                 Tech Stack
               </p>
               <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
-                {techStack.map((tech) => (
+                {data.homePage.techStack.map((tech) => (
                   <span key={tech} className="tech-badge">
                     {tech}
                   </span>

@@ -22,6 +22,14 @@ export const data = {
       fieldOne: "SOFTWARE",
       fieldTwo: "ENGINEER",
     },
+    techStack: [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Git",
+      "Figma",
+    ],
   },
   projectPage: {
     projects: [

@@ -68,15 +68,7 @@ export default function Navbar() {
           </button>
 
           {/* Desktop nav links — centered */}
-          <div
-            style={{
-              flex: 1,
-              display: "flex",
-              justifyContent: "center",
-              gap: "32px",
-            }}
-            className="hidden md:flex items-center"
-          >
+          <div className="hidden md:flex flex-1 justify-center items-center gap-8">
             {navLinks.map((link) => (
               <button
                 key={link.label}
