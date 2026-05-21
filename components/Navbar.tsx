@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ArrowUpRight, Sun, Code2 } from "lucide-react";
 import { data } from "@/assets/personalDetails";
@@ -12,32 +12,73 @@ const navLinks = [
   { label: data.navbar.about, href: "#about" },
 ];
 
+const sections = ["home", "projects", "skills", "about", "contact"];
+
+function getActiveSection() {
+  for (const id of [...sections].reverse()) {
+    const el = document.getElementById(id);
+    if (el && window.scrollY >= el.offsetTop - 100) {
+      return id.charAt(0).toUpperCase() + id.slice(1);
+    }
+  }
+  return "Home";
+}
+
 export default function Navbar() {
   const [active, setActive] = useState("Home");
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const isNavigating = useRef(false);
+  const scrollEndTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
+    const endNavigation = () => {
+      isNavigating.current = false;
+      setActive(getActiveSection());
+    };
+
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
-      const sections = ["home", "projects", "skills", "about", "contact"];
-      for (const id of [...sections].reverse()) {
-        const el = document.getElementById(id);
-        if (el && window.scrollY >= el.offsetTop - 100) {
-          setActive(id.charAt(0).toUpperCase() + id.slice(1));
-          break;
-        }
+      if (!isNavigating.current) {
+        setActive(getActiveSection());
       }
     };
+
+    const handleScrollEnd = () => {
+      if (scrollEndTimer.current) {
+        clearTimeout(scrollEndTimer.current);
+        scrollEndTimer.current = null;
+      }
+      endNavigation();
+    };
+
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scrollend", handleScrollEnd);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("scrollend", handleScrollEnd);
+      if (scrollEndTimer.current) clearTimeout(scrollEndTimer.current);
+    };
   }, []);
 
   const handleNav = (href: string, label: string) => {
+    if (scrollEndTimer.current) clearTimeout(scrollEndTimer.current);
+    isNavigating.current = true;
     setActive(label);
     setMobileOpen(false);
     const target = document.querySelector(href);
-    if (target) target.scrollIntoView({ behavior: "smooth" });
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
+      // Fallback for browsers without scrollend
+      scrollEndTimer.current = setTimeout(() => {
+        scrollEndTimer.current = null;
+        isNavigating.current = false;
+        setActive(getActiveSection());
+      }, 1000);
+    } else {
+      isNavigating.current = false;
+    }
   };
 
   return (
@@ -84,15 +125,15 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-4 shrink-0">
             <button
               onClick={() => handleNav("#contact", "Contact")}
-              className="btn-outline text-xs text-white"
+              className="btn-gradient text-xs text-white"
               id="navbar-lets-talk-btn"
             >
               Let&apos;s Talk
               <ArrowUpRight size={14} />
             </button>
-            <button className="w-9 h-9 flex items-center justify-center rounded-full border border-white/10 text-slate-400 hover:text-white hover:bg-white/5 transition-colors">
+            {/* <button className="w-9 h-9 flex items-center justify-center rounded-full border border-white/10 text-slate-400 hover:text-white hover:bg-white/5 transition-colors">
               <Sun size={16} />
-            </button>
+            </button> */}
           </div>
 
           {/* Mobile hamburger */}
