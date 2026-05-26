@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ArrowUpRight, Sun, Code2 } from "lucide-react";
+import { Menu, X, ArrowUpRight, Sun, Code2, Code } from "lucide-react";
 import { data } from "@/assets/personalDetails";
 
 const navLinks = [
@@ -97,14 +97,8 @@ export default function Navbar() {
             className="flex items-center gap-2 cursor-pointer shrink-0"
             onClick={() => handleNav("#home", "Home")}
           >
-            <div
-              className="flex items-center justify-center w-8 h-8 rounded-lg"
-              style={{ background: "var(--accent-gradient)" }}
-            >
-              <Code2 size={16} className="text-white" />
-            </div>
             <span className="font-mono text-sm font-bold text-white tracking-wider">
-              &lt;/&gt;
+              <Code size={24} />
             </span>
           </button>
 

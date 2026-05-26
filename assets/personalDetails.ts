@@ -3,9 +3,9 @@ export const data = {
     firstName: "ADITH",
     lastName: "M D",
     email: "adith@gmail.com",
-    phone: "+91 1234567890",
-    linkedIn: "adithmd@linkedIn.com",
-    github: "adithmd@github.com",
+    phone: "+91 8075051628",
+    linkedIn: "www.linkedin.com/in/adithmd04",
+    github: "https://github.com/Adithmd04",
   },
   navbar: {
     heading: "PORTFOLIO",
@@ -113,6 +113,10 @@ export const data = {
         level: "90%",
       },
       {
+        name: "bitbucket",
+        level: "70%",
+      },
+      {
         name: "Jira",
         level: "90%",
       },
@@ -121,8 +125,12 @@ export const data = {
         level: "90%",
       },
       {
-        name: "postman",
+        name: "claude",
         level: "90%",
+      },
+      {
+        name: "postman",
+        level: "60%",
       },
       {
         name: "figma",

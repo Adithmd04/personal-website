@@ -220,6 +220,45 @@ export default function AboutSection() {
                 </div>
               </div>
             </motion.div>
+
+            {/* Quote */}
+            <motion.div
+              className="glass-card"
+              style={{ padding: "24px", borderLeft: "3px solid #7c3aed" }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  gap: "16px",
+                  alignItems: "flex-start",
+                }}
+              >
+                <Quote
+                  size={24}
+                  style={{
+                    color: "rgba(124,58,237,0.5)",
+                    flexShrink: 0,
+                    marginTop: "2px",
+                  }}
+                />
+                <p
+                  style={{
+                    fontSize: "0.875rem",
+                    fontStyle: "italic",
+                    color: "#cbd5e1",
+                    lineHeight: 1.7,
+                  }}
+                >
+                  {
+                    '"Code is not just what I write, it\'s how I solve problems and create experiences that matter."'
+                  }
+                </p>
+              </div>
+            </motion.div>
           </div>
 
           {/* Right Column */}
@@ -347,45 +386,6 @@ export default function AboutSection() {
                     </span>
                   </div>
                 ))}
-              </div>
-            </motion.div>
-
-            {/* Quote */}
-            <motion.div
-              className="glass-card"
-              style={{ padding: "24px", borderLeft: "3px solid #7c3aed" }}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  gap: "16px",
-                  alignItems: "flex-start",
-                }}
-              >
-                <Quote
-                  size={24}
-                  style={{
-                    color: "rgba(124,58,237,0.5)",
-                    flexShrink: 0,
-                    marginTop: "2px",
-                  }}
-                />
-                <p
-                  style={{
-                    fontSize: "0.875rem",
-                    fontStyle: "italic",
-                    color: "#cbd5e1",
-                    lineHeight: 1.7,
-                  }}
-                >
-                  {
-                    '"Code is not just what I write, it\'s how I solve problems and create experiences that matter."'
-                  }
-                </p>
               </div>
             </motion.div>
           </div>
