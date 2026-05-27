@@ -1,25 +1,86 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import {
   Mail,
   Phone,
   MessageSquare,
+  Copy,
+  Check,
   ArrowUpRight,
-  GitBranch,
-  WifiIcon,
+  Sparkles,
 } from "lucide-react";
 import { data } from "@/assets/personalDetails";
+import GitHubLogo from "@/assets/icons/github.svg";
+import LinkedInLogo from "@/assets/icons/linkedin.svg";
+import InstagramLogo from "@/assets/icons/instagram.svg";
+import WhatsAppLogo from "@/assets/icons/whatsapp.svg";
+import Image from "next/image";
+import { useState } from "react";
 
 export default function ContactSection() {
-  const { heading, btnLabel } = data.contactPage;
   const { email, phone, linkedIn, github } = data.name;
+  const [copied, setCopied] = useState(false);
+  const socialIcons = [
+    {
+      logo: GitHubLogo,
+      href: `https://${github}`,
+      name: "GitHub",
+      hoverColor: "rgba(124,58,237,0.4)",
+      activeColor: "#a78bfa",
+    },
+    {
+      logo: LinkedInLogo,
+      href: `https://${linkedIn}`,
+      name: "LinkedIn",
+      hoverColor: "rgba(59,130,246,0.4)",
+      activeColor: "#60a5fa",
+    },
+    {
+      logo: InstagramLogo,
+      href: `https://instagram.com`,
+      name: "Instagram",
+      hoverColor: "rgba(236,72,153,0.4)",
+      activeColor: "#f472b6",
+    },
+    {
+      logo: WhatsAppLogo,
+      href: `https://wa.me/+91`,
+      name: "WhatsApp",
+      hoverColor: "rgba(16,185,129,0.4)",
+      activeColor: "#34d399",
+    },
+  ];
+
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy text: ", err);
+    }
+  };
+
+  // Animation variants for the Bento Box grid items
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1 },
+    },
+  };
+
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 80 } },
+  };
 
   return (
     <section
       id="contact"
       className="relative grid-bg"
-      style={{ padding: "112px 0" }}
+      style={{padding: "10px 50px"}}
     >
       <div
         className="absolute inset-0 pointer-events-none"
@@ -46,150 +107,293 @@ export default function ContactSection() {
       >
         {/* Header */}
         <motion.div
-          style={{ textAlign: "center", marginBottom: "64px" }}
+          style={{ marginBottom: "20px" }}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6 }}
         >
-          <span className="section-tag" style={{ justifyContent: "center" }}>
-            <MessageSquare size={12} />
-            {heading.fieldOne}
+          <span
+            className="section-tag inline-flex items-center gap-2 text-xs uppercase"
+            style={{ color: "#a78bfa" }}
+          >
+            <MessageSquare size={14} />
+            LET'S GET IN TOUCH
           </span>
           <h2
             className="section-heading"
-            style={{ marginTop: "16px", color: "#fff" }}
+            style={{
+              marginTop: "12px",
+              fontSize: "2.5rem",
+              fontWeight: 700,
+              color: "#fff",
+            }}
           >
-            {heading.fieldTwo}
+            Let's build something{" "}
+            <span style={{ color: "#a78bfa" }}>together</span>.
           </h2>
         </motion.div>
 
-        {/* Content grid */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 2fr",
-            gap: "32px",
-          }}
-        >
-          {/* Contact Info */}
+          {/* Bento Box Asymmetric Grid */}
           <motion.div
-            className="glass-card"
+            className="bento-grid"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
             style={{
-              padding: "28px",
-              display: "flex",
-              flexDirection: "column",
-              gap: "24px",
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+              gridAutoRows: "minmax(160px, auto)",
+              gap: "20px",
             }}
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
           >
-            <h3 style={{ fontSize: "1rem", fontWeight: 700, color: "#fff" }}>
-              Connect Info
-            </h3>
-
-            <div
-              style={{ display: "flex", alignItems: "flex-start", gap: "16px" }}
+            {/* Card 1: Availability Status (Large Accent Card) */}
+            <motion.div
+              className="glass-card"
+              variants={itemVariants}
+              whileHover={{ y: -4 }}
+              style={{
+                gridColumn: "span 2",
+                padding: "32px",
+                background: "rgba(255,255,255,0.02)",
+                border: "1px solid rgba(255,255,255,0.05)",
+                borderRadius: "24px",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                position: "relative",
+                overflow: "hidden",
+              }}
             >
               <div
                 style={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: "50%",
-                  background: "rgba(255,255,255,0.04)",
-                  border: "1px solid rgba(255,255,255,0.08)",
+                  position: "absolute",
+                  top: "20px",
+                  right: "20px",
+                  color: "rgba(124,58,237,0.4)",
+                }}
+              >
+                <Sparkles size={40} />
+              </div>
+              <div>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    marginBottom: "16px",
+                  }}
+                >
+                  <span
+                    style={{
+                      width: "10px",
+                      height: "10px",
+                      borderRadius: "50%",
+                      background: "#10b981",
+                      boxShadow: "0 0 12px #10b981",
+                    }}
+                  />
+                  <span
+                    style={{
+                      fontSize: "0.8rem",
+                      color: "#10b981",
+                      fontWeight: 600,
+                      letterSpacing: "0.05em",
+                    }}
+                  >
+                    AVAILABLE FOR NEW PROJECTS
+                  </span>
+                </div>
+                <h3
+                  style={{
+                    fontSize: "1.6rem",
+                    color: "#fff",
+                    fontWeight: 600,
+                    lineHeight: 1.3,
+                    maxWidth: "80%",
+                  }}
+                >
+                 Have an idea? Drop a message and let’s connect.
+                </h3>
+              </div>
+              <a
+                href={`mailto:${email}`}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "6px",
+                  color: "#a78bfa",
+                  textDecoration: "none",
+                  marginTop: "24px",
+                  fontSize: "0.9rem",
+                  fontWeight: 500,
+                }}
+              >
+                Start a conversation <ArrowUpRight size={16} />
+              </a>
+            </motion.div>
+
+            {/* Card 2: Interactive Email Copy Box */}
+            <motion.div
+              className="glass-card"
+              variants={itemVariants}
+              whileHover={{ y: -4 }}
+              style={{
+                padding: "28px",
+                background: "rgba(255,255,255,0.02)",
+                border: "1px solid rgba(255,255,255,0.05)",
+                borderRadius: "24px",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+              }}
+            >
+              <div
+                style={{
+                  width: 44,
+                  height: 44,
+                  borderRadius: "16px",
+                  background: "rgba(124,58,237,0.1)",
+                  border: "1px solid rgba(124,58,237,0.2)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  flexShrink: 0,
                 }}
               >
-                <Mail size={16} style={{ color: "#a78bfa" }} />
+                <Mail size={20} style={{ color: "#a78bfa" }} />
               </div>
-              <div>
+              <div style={{ marginTop: "20px" }}>
                 <p
                   style={{
-                    fontSize: "0.7rem",
+                    fontSize: "0.75rem",
                     fontWeight: 600,
-                    color: "var(--text-muted)",
+                    color: "rgba(255,255,255,0.4)",
                     textTransform: "uppercase",
                     letterSpacing: "0.1em",
-                    marginBottom: "4px",
+                    marginBottom: "6px",
                   }}
                 >
-                  Email
+                  Drop an Email
                 </p>
-                <a
-                  href={`mailto:${email}`}
+                <p
                   style={{
-                    fontSize: "0.85rem",
+                    fontSize: "0.95rem",
                     color: "#cbd5e1",
-                    textDecoration: "none",
+                    wordBreak: "break-all",
+                    fontWeight: 500,
+                    marginBottom: "14px",
                   }}
                 >
                   {email}
-                </a>
+                </p>
+                <button
+                  onClick={copyToClipboard}
+                  style={{
+                    width: "100%",
+                    padding: "10px",
+                    borderRadius: "12px",
+                    background: copied
+                      ? "rgba(16,185,129,0.1)"
+                      : "rgba(255,255,255,0.04)",
+                    border: copied
+                      ? "1px solid rgba(16,185,129,0.3)"
+                      : "1px solid rgba(255,255,255,0.08)",
+                    color: copied ? "#10b981" : "#94a3b8",
+                    fontSize: "0.8rem",
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "8px",
+                    transition: "all 0.2s",
+                  }}
+                >
+                  {copied ? <Check size={14} /> : <Copy size={14} />}
+                  {copied ? "Copied!" : "Copy Address"}
+                </button>
               </div>
-            </div>
+            </motion.div>
 
-            <div
-              style={{ display: "flex", alignItems: "flex-start", gap: "16px" }}
+            {/* Card 3: Direct Call Box */}
+            <motion.div
+              className="glass-card"
+              variants={itemVariants}
+              whileHover={{ y: -4 }}
+              style={{
+                padding: "28px",
+                background: "rgba(255,255,255,0.02)",
+                border: "1px solid rgba(255,255,255,0.05)",
+                borderRadius: "24px",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+              }}
             >
               <div
                 style={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: "50%",
-                  background: "rgba(255,255,255,0.04)",
-                  border: "1px solid rgba(255,255,255,0.08)",
+                  width: 44,
+                  height: 44,
+                  borderRadius: "16px",
+                  background: "rgba(124,58,237,0.1)",
+                  border: "1px solid rgba(124,58,237,0.2)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  flexShrink: 0,
                 }}
               >
-                <Phone size={16} style={{ color: "#60a5fa" }} />
+                <Phone size={20} style={{ color: "#a78bfa" }} />
               </div>
               <div>
                 <p
                   style={{
-                    fontSize: "0.7rem",
+                    fontSize: "0.75rem",
                     fontWeight: 600,
-                    color: "var(--text-muted)",
+                    color: "rgba(255,255,255,0.4)",
                     textTransform: "uppercase",
                     letterSpacing: "0.1em",
-                    marginBottom: "4px",
+                    marginBottom: "6px",
                   }}
                 >
-                  Phone
+                  Call / Text Direct
                 </p>
                 <a
                   href={`tel:${phone}`}
                   style={{
-                    fontSize: "0.85rem",
-                    color: "#cbd5e1",
+                    fontSize: "1.1rem",
+                    color: "#fff",
                     textDecoration: "none",
+                    fontWeight: 600,
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "6px",
                   }}
                 >
                   {phone}
                 </a>
               </div>
-            </div>
+            </motion.div>
 
-            <div
+            {/* Card 4: Asymmetric Social Grid Matrix */}
+            <motion.div
+              className="glass-card"
+              variants={itemVariants}
               style={{
-                marginTop: "auto",
-                paddingTop: "24px",
-                borderTop: "1px solid rgba(255,255,255,0.06)",
+                gridColumn: "span 2",
+                padding: "28px",
+                background: "rgba(255,255,255,0.01)",
+                border: "1px solid rgba(255,255,255,0.05)",
+                borderRadius: "24px",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
               }}
             >
               <p
                 style={{
-                  fontSize: "0.7rem",
+                  fontSize: "0.75rem",
                   fontWeight: 600,
-                  color: "var(--text-muted)",
+                  color: "rgba(255,255,255,0.4)",
                   textTransform: "uppercase",
                   letterSpacing: "0.1em",
                   marginBottom: "16px",
@@ -197,248 +401,58 @@ export default function ContactSection() {
               >
                 Socials
               </p>
-              <div style={{ display: "flex", gap: "12px" }}>
-                <a
-                  href={`https://${github}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  style={{
-                    width: 40,
-                    height: 40,
-                    borderRadius: "50%",
-                    background: "rgba(255,255,255,0.04)",
-                    border: "1px solid rgba(255,255,255,0.08)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: "#94a3b8",
-                    textDecoration: "none",
-                    transition: "all 0.2s",
-                  }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.borderColor =
-                      "rgba(124,58,237,0.4)";
-                    (e.currentTarget as HTMLAnchorElement).style.color =
-                      "#a78bfa";
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.borderColor =
-                      "rgba(255,255,255,0.08)";
-                    (e.currentTarget as HTMLAnchorElement).style.color =
-                      "#94a3b8";
-                  }}
-                >
-                  <GitBranch size={18} />
-                </a>
-                <a
-                  href={`https://${linkedIn}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  style={{
-                    width: 40,
-                    height: 40,
-                    borderRadius: "50%",
-                    background: "rgba(255,255,255,0.04)",
-                    border: "1px solid rgba(255,255,255,0.08)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: "#94a3b8",
-                    textDecoration: "none",
-                    transition: "all 0.2s",
-                  }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.borderColor =
-                      "rgba(59,130,246,0.4)";
-                    (e.currentTarget as HTMLAnchorElement).style.color =
-                      "#60a5fa";
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.borderColor =
-                      "rgba(255,255,255,0.08)";
-                    (e.currentTarget as HTMLAnchorElement).style.color =
-                      "#94a3b8";
-                  }}
-                >
-                  <WifiIcon size={18} />
-                </a>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Contact Form */}
-          <motion.div
-            className="glass-card"
-            style={{ padding: "28px 32px" }}
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <form
-              style={{ display: "flex", flexDirection: "column", gap: "20px" }}
-              onSubmit={(e) => e.preventDefault()}
-            >
               <div
                 style={{
                   display: "grid",
-                  gridTemplateColumns: "1fr 1fr",
-                  gap: "20px",
+                  gridTemplateColumns: "repeat(4, 1fr)",
+                  gap: "12px",
                 }}
               >
-                {[
-                  {
-                    id: "contact-name",
-                    label: "Your Name",
-                    type: "text",
-                    placeholder: "John Doe",
-                  },
-                  {
-                    id: "contact-email",
-                    label: "Your Email",
-                    type: "email",
-                    placeholder: "john@example.com",
-                  },
-                ].map((field) => (
-                  <div
-                    key={field.id}
+                {socialIcons?.map((social, i) => (
+                  <motion.a
+                    key={i}
+                    href={social.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     style={{
+                      height: "70px",
+                      borderRadius: "16px",
+                      background: "rgba(255,255,255,0.03)",
+                      border: "1px solid rgba(255,255,255,0.06)",
                       display: "flex",
                       flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
                       gap: "6px",
+                      textDecoration: "none",
+                      transition: "border-color 0.2s",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = social.hoverColor;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor =
+                        "rgba(255,255,255,0.06)";
                     }}
                   >
-                    <label
-                      htmlFor={field.id}
-                      style={{
-                        fontSize: "0.75rem",
-                        fontWeight: 500,
-                        color: "var(--text-secondary)",
-                        marginLeft: "2px",
-                      }}
-                    >
-                      {field.label}
-                    </label>
-                    <input
-                      type={field.type}
-                      id={field.id}
-                      placeholder={field.placeholder}
-                      style={{
-                        background: "rgba(255,255,255,0.04)",
-                        border: "1px solid rgba(255,255,255,0.08)",
-                        borderRadius: "10px",
-                        padding: "12px 16px",
-                        fontSize: "0.875rem",
-                        color: "#fff",
-                        outline: "none",
-                        transition: "border 0.2s",
-                      }}
-                      onFocus={(e) =>
-                        (e.target.style.borderColor = "rgba(124,58,237,0.5)")
-                      }
-                      onBlur={(e) =>
-                        (e.target.style.borderColor = "rgba(255,255,255,0.08)")
-                      }
+                    <Image
+                      src={social.logo}
+                      alt={social.name}
+                      width={20}
+                      height={20}
+                      style={{ filter: "brightness(0) invert(1)" }}
                     />
-                  </div>
+                    <span style={{ fontSize: "0.65rem", color: "#94a3b8" }}>
+                      {social.name}
+                    </span>
+                  </motion.a>
                 ))}
               </div>
-
-              <div
-                style={{ display: "flex", flexDirection: "column", gap: "6px" }}
-              >
-                <label
-                  htmlFor="contact-subject"
-                  style={{
-                    fontSize: "0.75rem",
-                    fontWeight: 500,
-                    color: "var(--text-secondary)",
-                    marginLeft: "2px",
-                  }}
-                >
-                  Subject
-                </label>
-                <input
-                  type="text"
-                  id="contact-subject"
-                  placeholder="How can I help you?"
-                  style={{
-                    background: "rgba(255,255,255,0.04)",
-                    border: "1px solid rgba(255,255,255,0.08)",
-                    borderRadius: "10px",
-                    padding: "12px 16px",
-                    fontSize: "0.875rem",
-                    color: "#fff",
-                    outline: "none",
-                    transition: "border 0.2s",
-                  }}
-                  onFocus={(e) =>
-                    (e.target.style.borderColor = "rgba(124,58,237,0.5)")
-                  }
-                  onBlur={(e) =>
-                    (e.target.style.borderColor = "rgba(255,255,255,0.08)")
-                  }
-                />
-              </div>
-
-              <div
-                style={{ display: "flex", flexDirection: "column", gap: "6px" }}
-              >
-                <label
-                  htmlFor="contact-message"
-                  style={{
-                    fontSize: "0.75rem",
-                    fontWeight: 500,
-                    color: "var(--text-secondary)",
-                    marginLeft: "2px",
-                  }}
-                >
-                  Message
-                </label>
-                <textarea
-                  id="contact-message"
-                  rows={4}
-                  placeholder="Your message here..."
-                  style={{
-                    background: "rgba(255,255,255,0.04)",
-                    border: "1px solid rgba(255,255,255,0.08)",
-                    borderRadius: "10px",
-                    padding: "12px 16px",
-                    fontSize: "0.875rem",
-                    color: "#fff",
-                    outline: "none",
-                    resize: "none",
-                    transition: "border 0.2s",
-                  }}
-                  onFocus={(e) =>
-                    (e.target.style.borderColor = "rgba(124,58,237,0.5)")
-                  }
-                  onBlur={(e) =>
-                    (e.target.style.borderColor = "rgba(255,255,255,0.08)")
-                  }
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="btn-gradient"
-                style={{
-                  width: "100%",
-                  justifyContent: "center",
-                  padding: "14px 24px",
-                  fontSize: "0.9rem",
-                  fontWeight: 700,
-                  marginTop: "4px",
-                }}
-                id="contact-submit-btn"
-              >
-                {btnLabel}
-                <ArrowUpRight size={16} style={{ marginLeft: "8px" }} />
-              </button>
-            </form>
+            </motion.div>
           </motion.div>
         </div>
-      </div>
     </section>
   );
 }

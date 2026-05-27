@@ -5,7 +5,7 @@ export const data = {
     email: "adith@gmail.com",
     phone: "+91 8075051628",
     linkedIn: "www.linkedin.com/in/adithmd04",
-    github: "https://github.com/Adithmd04",
+    github: "github.com/Adithmd04",
   },
   navbar: {
     heading: "PORTFOLIO",

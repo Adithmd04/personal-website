@@ -36,7 +36,7 @@ export default function HeroSection() {
     <section
       id="home"
       className="relative min-h-screen grid-bg"
-      style={{ paddingTop: "64px" }}
+      style={{padding: "10px 50px"}}
     >
       {/* Radial glow */}
       <div
@@ -142,14 +142,6 @@ export default function HeroSection() {
               variants={fadeUp}
               style={{ display: "flex", flexWrap: "wrap", gap: "12px" }}
             >
-              <button
-                id="hero-contact-btn"
-                onClick={scrollToContact}
-                className="btn-gradient"
-              >
-                {data.homePage.btnLabel}
-                <ArrowRight size={16} />
-              </button>
               <button className="btn-outline" id="hero-download-cv-btn">
                 {data.aboutPage.downloadBtnLabel}
                 <Download size={16} />

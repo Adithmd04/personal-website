@@ -133,7 +133,7 @@ export default function SkillsSection() {
     <section
       id="skills"
       className="relative grid-bg"
-      style={{ padding: "112px 0" }}
+      style={{padding: "10px 50px"}}
     >
       <div
         className="absolute inset-0 pointer-events-none"
@@ -204,7 +204,7 @@ export default function SkillsSection() {
                 gap: "8px",
               }}
             >
-              <Layers size={16} style={{ color: "#a78bfa" }} /> Skills Overview
+              <Layers size={16} style={{ color: "#a78bfa" }} /> Tech stack
             </h3>
             <div
               style={{ display: "flex", flexDirection: "column", gap: "12px" }}
@@ -249,74 +249,6 @@ export default function SkillsSection() {
                   </p>
                 </div>
               ))}
-
-              {/* Tools */}
-              <motion.div
-                style={{
-                  padding: "12px",
-                  borderRadius: "12px",
-                  background: "rgba(255,255,255,0.02)",
-                  border: "1px solid rgba(255,255,255,0.05)",
-                }}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-              >
-                <h3
-                  style={{
-                    fontSize: "0.9rem",
-                    fontWeight: 700,
-                    color: "#fff",
-                    marginBottom: "20px",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "8px",
-                  }}
-                >
-                  <Wrench size={16} style={{ color: "#a78bfa" }} /> Tools I Use
-                </h3>
-                <div
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(auto-fill, minmax(64px, 1fr))",
-                    gap: "12px",
-                  }}
-                >
-                  {tools?.map((tool) => (
-                    <div
-                      key={tool.name}
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        gap: "6px",
-                        padding: "12px 8px",
-                        borderRadius: "12px",
-                        background: "rgba(255,255,255,0.02)",
-                        border: "1px solid rgba(255,255,255,0.05)",
-                        transition: "all 0.2s",
-                        cursor: "default",
-                      }}
-                    >
-                      <span style={{ fontSize: "1.5rem" }}>
-                        {toolIcons[tool.name]}
-                      </span>
-                      <span
-                        style={{
-                          fontSize: "0.65rem",
-                          fontWeight: 500,
-                          color: "var(--text-secondary)",
-                          textTransform: "capitalize",
-                          textAlign: "center",
-                        }}
-                      >
-                        {tool.name}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
             </div>
           </motion.div>
 
@@ -325,7 +257,7 @@ export default function SkillsSection() {
             style={{ display: "flex", flexDirection: "column", gap: "24px" }}
           >
             {/* Proficiency */}
-            <motion.div
+            {/* <motion.div
               className="glass-card"
               style={{ padding: "24px" }}
               initial={{ opacity: 0, x: 30 }}
@@ -400,7 +332,75 @@ export default function SkillsSection() {
                   </motion.div>
                 ))}
               </div>
-            </motion.div>
+            </motion.div> */}
+
+             {/* Tools */}
+              <motion.div
+                style={{
+                  padding: "12px",
+                  borderRadius: "12px",
+                  background: "rgba(255,255,255,0.02)",
+                  border: "1px solid rgba(255,255,255,0.05)",
+                }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+              >
+                <h3
+                  style={{
+                    fontSize: "0.9rem",
+                    fontWeight: 700,
+                    color: "#fff",
+                    marginBottom: "20px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                  }}
+                >
+                  <Wrench size={16} style={{ color: "#a78bfa" }} /> Tools I Use
+                </h3>
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(auto-fill, minmax(64px, 1fr))",
+                    gap: "12px",
+                  }}
+                >
+                  {tools?.map((tool) => (
+                    <div
+                      key={tool.name}
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        gap: "6px",
+                        padding: "12px 8px",
+                        borderRadius: "12px",
+                        background: "rgba(255,255,255,0.02)",
+                        border: "1px solid rgba(255,255,255,0.05)",
+                        transition: "all 0.2s",
+                        cursor: "default",
+                      }}
+                    >
+                      <span style={{ fontSize: "1.5rem" }}>
+                        {toolIcons[tool.name]}
+                      </span>
+                      <span
+                        style={{
+                          fontSize: "0.65rem",
+                          fontWeight: 500,
+                          color: "var(--text-secondary)",
+                          textTransform: "capitalize",
+                          textAlign: "center",
+                        }}
+                      >
+                        {tool.name}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
 
             {/* Currently learning */}
             <motion.div

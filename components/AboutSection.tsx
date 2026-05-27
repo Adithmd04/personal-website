@@ -11,7 +11,7 @@ export default function AboutSection() {
     <section
       id="about"
       className="relative grid-bg"
-      style={{ padding: "112px 0" }}
+      style={{padding: "10px 50px"}}
     >
       <div
         className="section-container"

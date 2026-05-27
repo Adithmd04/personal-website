@@ -20,7 +20,7 @@ export default function ProjectsSection() {
     <section
       id="projects"
       className="relative grid-bg"
-      style={{ padding: "112px 0" }}
+      style={{padding: "10px 50px"}}
     >
       <div className="section-container">
         {/* Section header */}
