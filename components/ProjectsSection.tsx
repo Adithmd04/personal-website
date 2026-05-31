@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ExternalLink, Folder, GitFork } from "lucide-react";
+import { ExternalLink, GitFork } from "lucide-react";
 import { data } from "@/assets/personalDetails";
 
 const filters = ["All", "personal", "company"];
@@ -20,7 +20,7 @@ export default function ProjectsSection() {
     <section
       id="projects"
       className="relative grid-bg"
-      style={{padding: "10px 50px"}}
+      style={{ padding: "10px 50px" }}
     >
       <div className="section-container">
         {/* Section header */}
@@ -31,10 +31,6 @@ export default function ProjectsSection() {
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6 }}
         >
-          <span className="section-tag">
-            <Folder size={12} />
-            Portfolio
-          </span>
           <h2
             className="section-heading"
             style={{ marginTop: "16px", color: "#fff" }}
@@ -58,7 +54,7 @@ export default function ProjectsSection() {
             display: "flex",
             flexWrap: "wrap",
             gap: "12px",
-            marginBottom: "40px",
+            marginBottom: "20px",
           }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -101,7 +97,7 @@ export default function ProjectsSection() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
             gap: "24px",
           }}
         >
@@ -117,9 +113,10 @@ export default function ProjectsSection() {
             >
               {/* Gradient image placeholder */}
               <div
+                className=""
                 style={{
                   position: "relative",
-                  height: "176px",
+                  height: "120px",
                   overflow: "hidden",
                 }}
               >
@@ -137,8 +134,8 @@ export default function ProjectsSection() {
                     inset: 0,
                     opacity: 0.15,
                     display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
+                    alignItems: "start",
+                    justifyContent: "start",
                   }}
                 >
                   <pre
@@ -187,21 +184,6 @@ export default function ProjectsSection() {
                 >
                   {project.heading}
                 </h3>
-                {project.description && (
-                  <p
-                    style={{
-                      fontSize: "0.85rem",
-                      color: "var(--text-secondary)",
-                      marginBottom: "16px",
-                      overflow: "hidden",
-                      display: "-webkit-box",
-                      WebkitLineClamp: 2,
-                      WebkitBoxOrient: "vertical",
-                    }}
-                  >
-                    {project.description}
-                  </p>
-                )}
 
                 {/* Tech pills */}
                 <div
@@ -231,45 +213,79 @@ export default function ProjectsSection() {
                 </div>
 
                 {/* Links */}
-                <div
-                  style={{
-                    display: "flex",
-                    gap: "12px",
-                    paddingTop: "12px",
-                    borderTop: "1px solid rgba(255,255,255,0.05)",
-                  }}
-                >
-                  {project.links.map((link) => (
-                    <a
-                      key={link.type}
-                      href={link.url || "#"}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "6px",
-                        fontSize: "0.75rem",
-                        color: "var(--text-muted)",
-                        transition: "color 0.2s",
-                        textDecoration: "none",
-                      }}
-                      onMouseEnter={(e) =>
-                        (e.currentTarget.style.color = "#a78bfa")
-                      }
-                      onMouseLeave={(e) =>
-                        (e.currentTarget.style.color = "var(--text-muted)")
-                      }
-                    >
-                      {link.type === "Github" ? (
-                        <GitFork size={14} />
-                      ) : (
-                        <ExternalLink size={14} />
-                      )}
-                      {link.type}
-                    </a>
-                  ))}
-                </div>
+                {project.links.length > 0 ? (
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "12px",
+                      paddingTop: "12px",
+                      borderTop: "1px solid rgba(255,255,255,0.05)",
+                    }}
+                  >
+                    {project.links.map((link) => (
+                      <a
+                        key={link.type}
+                        href={link.url || "#"}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "6px",
+                          fontSize: "0.75rem",
+                          color: "var(--text-muted)",
+                          transition: "color 0.2s",
+                          textDecoration: "none",
+                        }}
+                        onMouseEnter={(e) =>
+                          (e.currentTarget.style.color = "#a78bfa")
+                        }
+                        onMouseLeave={(e) =>
+                          (e.currentTarget.style.color = "var(--text-muted)")
+                        }
+                      >
+                        {link.type === "Github" ? (
+                          <GitFork size={14} />
+                        ) : (
+                          <ExternalLink size={14} />
+                        )}
+                        {link.type}
+                      </a>
+                    ))}
+                  </div>
+                ) : (
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "12px",
+                      paddingTop: "12px",
+                      borderTop: "1px solid rgba(255,255,255,0.05)",
+                    }}
+                  >
+                    {
+                      <span
+                        className="cursor-default"
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "6px",
+                          fontSize: "0.75rem",
+                          color: "var(--text-muted)",
+                          transition: "color 0.2s",
+                          textDecoration: "none",
+                        }}
+                        onMouseEnter={(e) =>
+                          (e.currentTarget.style.color = "#a78bfa")
+                        }
+                        onMouseLeave={(e) =>
+                          (e.currentTarget.style.color = "var(--text-muted)")
+                        }
+                      >
+                        {project?.description}
+                      </span>
+                    }
+                  </div>
+                )}
               </div>
             </motion.div>
           ))}

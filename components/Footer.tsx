@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Code2 } from "lucide-react";
+import { Code, Code2 } from "lucide-react";
 import { data } from "@/assets/personalDetails";
 
 export default function Footer() {
-  // Use state + effect to avoid hydration mismatch on the year
   const [year, setYear] = useState<number | null>(null);
+  const navItems = ["Email", "Phone"];
 
   useEffect(() => {
     setYear(new Date().getFullYear());
@@ -34,35 +34,9 @@ export default function Footer() {
           gap: "16px",
         }}
       >
-        {/* Logo */}
-        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: "24px",
-              height: "24px",
-              borderRadius: "6px",
-              background: "linear-gradient(135deg, #7c3aed, #3b82f6)",
-            }}
-          >
-            <Code2 size={12} color="white" />
-          </div>
-          <span
-            style={{
-              fontFamily: "monospace",
-              fontSize: "0.75rem",
-              fontWeight: 700,
-              color: "#fff",
-              letterSpacing: "0.1em",
-            }}
-          >
-            {data.name.firstName} {data.name.lastName}
-          </span>
-        </div>
 
-        {/* Copyright */}
+         <Code size={24} />
+
         <p
           style={{
             fontSize: "0.75rem",
@@ -74,9 +48,8 @@ export default function Footer() {
           &copy; {year ?? ""} {data.name.firstName} {data.name.lastName}. All rights reserved.
         </p>
 
-        {/* Links */}
         <div style={{ display: "flex", gap: "16px" }}>
-          {["Privacy Policy", "Terms of Service"].map((label) => (
+          {navItems?.map((label) => (
             <a
               key={label}
               href="#"

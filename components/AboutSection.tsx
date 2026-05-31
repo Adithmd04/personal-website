@@ -1,17 +1,18 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { User, Briefcase, GraduationCap, Quote, Code } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Briefcase, GraduationCap, Quote, Code } from "lucide-react";
 import { data } from "@/assets/personalDetails";
+import { useState } from "react";
 
 export default function AboutSection() {
   const { description, education, experience, hobbies } = data.aboutPage;
-
+  const [hoveredEducation, setHoveredEducation] = useState<number | null>(null);
   return (
     <section
       id="about"
       className="relative grid-bg"
-      style={{padding: "10px 50px"}}
+      style={{ padding: "20px 50px" }}
     >
       <div
         className="section-container"
@@ -25,10 +26,6 @@ export default function AboutSection() {
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6 }}
         >
-          <span className="section-tag">
-            <User size={12} />
-            Background
-          </span>
           <h2
             className="section-heading"
             style={{ marginTop: "16px", color: "#fff" }}
@@ -56,7 +53,7 @@ export default function AboutSection() {
         >
           {/* Left Column */}
           <div
-            style={{ display: "flex", flexDirection: "column", gap: "32px" }}
+            style={{ display: "flex", flexDirection: "column", gap: "25px" }}
           >
             <motion.p
               style={{
@@ -81,7 +78,7 @@ export default function AboutSection() {
               transition={{ duration: 0.6, delay: 0.1 }}
             >
               {/* Experience */}
-              <div style={{ marginBottom: "32px" }}>
+              <div style={{ marginBottom: "5px" }}>
                 <h3
                   style={{
                     fontSize: "0.9rem",
@@ -183,9 +180,9 @@ export default function AboutSection() {
                     marginLeft: "8px",
                   }}
                 >
-                  {education.degree.map((deg, idx) => (
+                  {education.degree.map((deg, id) => (
                     <div
-                      key={idx}
+                      key={id}
                       style={{
                         position: "relative",
                         paddingLeft: "24px",
@@ -206,15 +203,32 @@ export default function AboutSection() {
                         }}
                       />
                       <h4
+                        className="cursor-pointer"
                         style={{
                           fontSize: "0.85rem",
                           fontWeight: 600,
                           color: "#fff",
                           textTransform: "capitalize",
                         }}
+                        onMouseEnter={() => setHoveredEducation(id)}
+                        onMouseLeave={() => setHoveredEducation(null)}
                       >
-                        {deg}
+                        {deg.degree}
                       </h4>
+                      <AnimatePresence>
+                        {hoveredEducation === id && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0, y: -5 }}
+                            animate={{ opacity: 1, height: "auto", y: 0 }}
+                            exit={{ opacity: 0, height: 0, y: -5 }}
+                            transition={{ duration: 0.25 }}
+                            className="overflow-hidden text-[0.8rem] text-[#94a3b8]"
+                          >
+                            <p>{deg.institution}</p>
+                            <p>{deg.year}</p>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
                   ))}
                 </div>
@@ -323,7 +337,13 @@ export default function AboutSection() {
             {/* Beyond Code */}
             <motion.div
               className="glass-card"
-              style={{ padding: "24px" }}
+              style={{
+                padding: "24px",
+                borderRadius: "24px",
+                background: "rgba(255, 255, 255, 0.03)",
+                backdropFilter: "blur(12px)",
+                border: "1px solid rgba(255, 255, 255, 0.08)",
+              }}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -334,57 +354,58 @@ export default function AboutSection() {
                   fontSize: "0.9rem",
                   fontWeight: 700,
                   color: "#fff",
-                  marginBottom: "16px",
+                  marginBottom: "20px",
+                  letterSpacing: "0.05em",
+                  textTransform: "uppercase",
+                  opacity: 0.8,
                 }}
               >
                 Beyond Code
               </h3>
+
               <div
                 style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(2, 1fr)",
-                  gap: "12px",
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: "10px",
                 }}
               >
                 {hobbies.map((hobby, idx) => (
-                  <div
+                  <motion.div
                     key={idx}
+                    whileHover={{
+                      scale: 1.05,
+                      backgroundColor: "rgba(255, 255, 255, 0.08)",
+                      borderColor: "rgba(255, 255, 255, 0.25)",
+                      boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+                    }}
+                    whileTap={{ scale: 0.97 }}
                     style={{
                       display: "flex",
-                      flexDirection: "column",
                       alignItems: "center",
                       justifyContent: "center",
-                      padding: "16px 8px",
-                      borderRadius: "12px",
-                      background: "rgba(255,255,255,0.03)",
-                      border: "1px solid rgba(255,255,255,0.06)",
-                      gap: "8px",
-                      transition: "all 0.2s",
+                      padding: "10px 20px",
+                      borderRadius: "100px",
+                      background: "rgba(255, 255, 255, 0.03)",
+                      border: "1px solid rgba(255, 255, 255, 0.06)",
+                      cursor: "pointer",
+                      transition: "border-color 0.2s, background-color 0.2s",
                     }}
                   >
-                    <span style={{ fontSize: "1.5rem" }}>
-                      {hobby.toLowerCase().includes("bike")
-                        ? "🏍️"
-                        : hobby.toLowerCase().includes("football")
-                          ? "⚽"
-                          : hobby.toLowerCase().includes("gaming")
-                            ? "🎮"
-                            : hobby.toLowerCase().includes("travel")
-                              ? "✈️"
-                              : "✨"}
-                    </span>
                     <span
                       style={{
-                        fontSize: "0.7rem",
+                        fontSize: "0.75rem",
                         fontWeight: 600,
                         textTransform: "capitalize",
-                        color: "#94a3b8",
+                        color: "#cbd5e1",
+                        letterSpacing: "0.03em",
                         textAlign: "center",
+                        whiteSpace: "nowrap",
                       }}
                     >
                       {hobby}
                     </span>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </motion.div>

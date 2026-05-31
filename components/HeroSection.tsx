@@ -1,22 +1,8 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import { ArrowRight, Download, Sparkles } from "lucide-react";
+import { Download, Sparkles } from "lucide-react";
 import { data } from "@/assets/personalDetails";
-
-const codeLines = [
-  { key: "const\u00A0", mid: " developer", rest: " = {" },
-  {
-    key: "  name:",
-    mid: "",
-    rest: ` "${data.name.firstName} ${data.name.lastName}",`,
-  },
-  { key: "  role:", mid: "", rest: ` "Software Engineer",` },
-  { key: "  experience:", mid: "", rest: ` "2+ years",` },
-  { key: "  focus:", mid: "", rest: ` ["Web Apps", "API"],` },
-  { key: "  passion:", mid: "", rest: ` "Clean Code",` },
-  { key: "}", mid: "", rest: "" },
-];
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -28,9 +14,24 @@ const fadeUp: Variants = {
 };
 
 export default function HeroSection() {
-  const scrollToContact = () => {
-    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
-  };
+const startYear = 2024
+
+const experienceYearCount =
+  new Date().getFullYear() - startYear;  
+
+  const codeLines = [
+  { key: "const\u00A0", mid: "developer\u00A0", rest: " = {" },
+  {
+    key: "  name:",
+    mid: "",
+    rest: ` "${data.name.firstName} ${data.name.lastName}",`,
+  },
+  { key: "  role:", mid: "", rest: ` "Software Engineer",` },
+  { key: "  experience:", mid: "", rest: ` "${experienceYearCount}+ years",` },
+  { key: "  focus:", mid: "", rest: ` ["Web Apps", "API"],` },
+  { key: "  passion:", mid: "", rest: ` "Clean Code",` },
+  { key: "}", mid: "", rest: "" },
+];
 
   return (
     <section

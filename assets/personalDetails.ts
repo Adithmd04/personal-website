@@ -2,7 +2,7 @@ export const data = {
   name: {
     firstName: "ADITH",
     lastName: "M D",
-    email: "adith@gmail.com",
+    email: "adithdijikumar@gmail.com",
     phone: "+91 8075051628",
     linkedIn: "www.linkedin.com/in/adithmd04",
     github: "github.com/Adithmd04",
@@ -42,7 +42,7 @@ export const data = {
           { type: "Live", url: "" },
           { type: "Github", url: "" },
         ],
-        tag: ["in-production"],
+        tag: ["in-prod"],
       },
       {
         heading: "XOX-multiplayer",
@@ -59,12 +59,12 @@ export const data = {
           { type: "Live", url: "" },
           { type: "Github", url: "" },
         ],
-        tag: ["in-production"],
+        tag: ["in-prod"],
       },
       {
         heading: "Staff Connect",
         type: "company",
-        description: "",
+        description: "Corporate Project",
         technologies: [
           "React.js",
           "Next.js",
@@ -72,11 +72,8 @@ export const data = {
           "Tailwind CSS",
           "firebase",
         ],
-        links: [
-          { type: "Live", url: "" },
-          { type: "Github", url: "" },
-        ],
-        tag: ["in-production"],
+        links: [],
+        tag: ["in-prod"],
       },
     ],
   },
@@ -153,8 +150,16 @@ export const data = {
       "I am a Front-End Software Engineer with a Master's in Computer Applications, specializing in React.js, Next.js, and TypeScript. With expertise in HTML, CSS, Tailwind CSS, and Bootstrap, I focus on building dynamic, user-friendly interfaces while staying updated with the latest technologies to deliver innovative solutions.",
     education: {
       degree: [
-        "Master of computer application",
-        "bachelor of computer application",
+        {
+          institution: "Nirmala college,Muvattupuzha",
+          year: "2022-2024",
+          degree: "Master of computer application",
+        },
+        {
+          institution: "Nirmala college of arts and science, Mulanthuruthy",
+          year: "2019-2022",
+          degree: "Bachelor of computer application",
+        },
       ],
     },
     experience: {

@@ -1,14 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-  Wrench,
-  BookOpen,
-  TrendingUp,
-  Layers,
-  Code,
-  Settings,
-} from "lucide-react";
+import { Wrench, BookOpen, Layers, Code } from "lucide-react";
 import { data } from "@/assets/personalDetails";
 import GitHubLogo from "@/assets/icons/github.svg";
 import GitLogo from "@/assets/icons/git.svg";
@@ -96,9 +89,8 @@ const toolIcons: Record<string, React.ReactNode> = {
 };
 
 export default function SkillsSection() {
-  const { skills, tools, currentlyLearning } = data.skillPage;
+  const { tools, currentlyLearning } = data.skillPage;
 
-  // Defined inside component so JSX icons are created during React's render cycle
   const skillCategories = [
     {
       label: "Frontend",
@@ -122,18 +114,18 @@ export default function SkillsSection() {
       icon: <Layers size={15} />,
       items: ["Supabase", "Firebase"],
     },
-    {
-      label: "Tools & Others",
-      icon: <Settings size={15} />,
-      items: ["Git", "Docker", "VS Code", "Figma", "Postman"],
-    },
+    // {
+    //   label: "Tools & Others",
+    //   icon: <Settings size={15} />,
+    //   items: ["Git", "Docker", "VS Code", "Figma", "Postman"],
+    // },
   ];
 
   return (
     <section
       id="skills"
       className="relative grid-bg"
-      style={{padding: "10px 50px"}}
+      style={{ padding: "20px 50px" }}
     >
       <div
         className="absolute inset-0 pointer-events-none"
@@ -155,10 +147,6 @@ export default function SkillsSection() {
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6 }}
         >
-          <span className="section-tag">
-            <TrendingUp size={12} />
-            Expertise
-          </span>
           <h2
             className="section-heading"
             style={{ marginTop: "16px", color: "#fff" }}
@@ -256,14 +244,19 @@ export default function SkillsSection() {
           <div
             style={{ display: "flex", flexDirection: "column", gap: "24px" }}
           >
-            {/* Proficiency */}
-            {/* <motion.div
+            {/* Tools */}
+            <motion.div
               className="glass-card"
-              style={{ padding: "24px" }}
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              style={{
+                padding: "12px",
+                borderRadius: "12px",
+                background: "rgba(255,255,255,0.02)",
+                border: "1px solid rgba(255,255,255,0.05)",
+              }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
             >
               <h3
                 style={{
@@ -276,131 +269,50 @@ export default function SkillsSection() {
                   gap: "8px",
                 }}
               >
-                <TrendingUp size={16} style={{ color: "#a78bfa" }} />{" "}
-                Proficiency
+                <Wrench size={16} style={{ color: "#a78bfa" }} /> Tools I work
+                with
               </h3>
               <div
                 style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "18px",
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fill, minmax(64px, 1fr))",
+                  gap: "12px",
                 }}
               >
-                {skills.map((skill, i) => (
-                  <motion.div
-                    key={skill.name}
-                    initial={{ opacity: 0, x: 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: i * 0.1 }}
+                {tools?.map((tool) => (
+                  <div
+                    key={tool.name}
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      gap: "6px",
+                      padding: "12px 8px",
+                      borderRadius: "12px",
+                      background: "rgba(255,255,255,0.02)",
+                      border: "1px solid rgba(255,255,255,0.05)",
+                      transition: "all 0.2s",
+                      cursor: "default",
+                    }}
                   >
-                    <div
+                    <span style={{ fontSize: "1.5rem" }}>
+                      {toolIcons[tool.name]}
+                    </span>
+                    <span
                       style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        marginBottom: "6px",
+                        fontSize: "0.65rem",
+                        fontWeight: 500,
+                        color: "var(--text-secondary)",
+                        textTransform: "capitalize",
+                        textAlign: "center",
                       }}
                     >
-                      <span
-                        style={{
-                          fontSize: "0.8rem",
-                          fontWeight: 500,
-                          color: "#cbd5e1",
-                        }}
-                      >
-                        {skill.name}
-                      </span>
-                      <span
-                        style={{
-                          fontSize: "0.75rem",
-                          fontWeight: 600,
-                          color: "#a78bfa",
-                        }}
-                      >
-                        {skill.level}
-                      </span>
-                    </div>
-                    <div className="progress-bar-track">
-                      <motion.div
-                        className="progress-bar-fill"
-                        initial={{ width: 0 }}
-                        whileInView={{ width: skill.level }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1.2, delay: 0.3 + i * 0.1 }}
-                      />
-                    </div>
-                  </motion.div>
+                      {tool.name}
+                    </span>
+                  </div>
                 ))}
               </div>
-            </motion.div> */}
-
-             {/* Tools */}
-              <motion.div
-                style={{
-                  padding: "12px",
-                  borderRadius: "12px",
-                  background: "rgba(255,255,255,0.02)",
-                  border: "1px solid rgba(255,255,255,0.05)",
-                }}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-              >
-                <h3
-                  style={{
-                    fontSize: "0.9rem",
-                    fontWeight: 700,
-                    color: "#fff",
-                    marginBottom: "20px",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "8px",
-                  }}
-                >
-                  <Wrench size={16} style={{ color: "#a78bfa" }} /> Tools I Use
-                </h3>
-                <div
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(auto-fill, minmax(64px, 1fr))",
-                    gap: "12px",
-                  }}
-                >
-                  {tools?.map((tool) => (
-                    <div
-                      key={tool.name}
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        gap: "6px",
-                        padding: "12px 8px",
-                        borderRadius: "12px",
-                        background: "rgba(255,255,255,0.02)",
-                        border: "1px solid rgba(255,255,255,0.05)",
-                        transition: "all 0.2s",
-                        cursor: "default",
-                      }}
-                    >
-                      <span style={{ fontSize: "1.5rem" }}>
-                        {toolIcons[tool.name]}
-                      </span>
-                      <span
-                        style={{
-                          fontSize: "0.65rem",
-                          fontWeight: 500,
-                          color: "var(--text-secondary)",
-                          textTransform: "capitalize",
-                          textAlign: "center",
-                        }}
-                      >
-                        {tool.name}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
+            </motion.div>
 
             {/* Currently learning */}
             <motion.div
