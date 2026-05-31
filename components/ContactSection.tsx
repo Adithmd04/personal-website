@@ -69,11 +69,7 @@ export default function ContactSection() {
   };
 
   return (
-    <section
-      id="contact"
-      className="relative grid-bg"
-      style={{ padding: "20px 50px" }}
-    >
+    <section id="contact" className="relative grid-bg section-padding">
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -105,15 +101,7 @@ export default function ContactSection() {
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6 }}
         >
-          <h2
-            className="section-heading"
-            style={{
-              marginTop: "12px",
-              fontSize: "2.5rem",
-              fontWeight: 700,
-              color: "#fff",
-            }}
-          >
+          <h2 className="section-heading contact-heading">
             {`Let's build something`}{" "}
             <span style={{ color: "#a78bfa" }}>together</span>
           </h2>
@@ -121,25 +109,18 @@ export default function ContactSection() {
 
         {/* Bento Box Asymmetric Grid */}
         <motion.div
-          className="bento-grid"
+          className="contact-bento-grid"
           variants={containerVariants}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-            gridAutoRows: "minmax(160px, auto)",
-            gap: "20px",
-          }}
         >
           {/* Card 1: Availability Status (Large Accent Card) */}
           <motion.div
-            className="glass-card"
+            className="glass-card bento-wide"
             variants={itemVariants}
             whileHover={{ y: -4 }}
             style={{
-              gridColumn: "span 2",
               padding: "32px",
               background: "rgba(255,255,255,0.02)",
               border: "1px solid rgba(255,255,255,0.05)",
@@ -273,7 +254,6 @@ export default function ContactSection() {
                 {email}
               </p>
               <button
-                onClick={copyToClipboard}
                 style={{
                   width: "100%",
                   padding: "10px",
@@ -293,6 +273,7 @@ export default function ContactSection() {
                   gap: "8px",
                   transition: "all 0.2s",
                 }}
+                onClick={copyToClipboard}
               >
                 {copied ? <Check size={14} /> : <Copy size={14} />}
                 {copied ? "Copied!" : "Copy Address"}
@@ -361,10 +342,9 @@ export default function ContactSection() {
 
           {/* Card 4: Asymmetric Social Grid Matrix */}
           <motion.div
-            className="glass-card"
+            className="glass-card bento-wide"
             variants={itemVariants}
             style={{
-              gridColumn: "span 2",
               padding: "28px",
               background: "rgba(255,255,255,0.01)",
               border: "1px solid rgba(255,255,255,0.05)",
@@ -386,13 +366,7 @@ export default function ContactSection() {
             >
               Socials
             </p>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(4, 1fr)",
-                gap: "12px",
-              }}
-            >
+            <div className="social-grid">
               {socialIcons?.map((social, index) => (
                 <motion.a
                   key={index}

@@ -23,16 +23,7 @@ export default function Footer() {
       }}
     >
       <div
-        className="section-container"
-        style={{
-          padding: "32px 24px",
-          display: "flex",
-          flexDirection: "row",
-          flexWrap: "wrap",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: "16px",
-        }}
+        className="section-container footer-inner"
       >
 
          <Code size={24} />

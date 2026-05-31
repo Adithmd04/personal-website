@@ -265,16 +265,7 @@ body {
 
 /* Navbar styles */
 .navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
   z-index: 100;
-  height: 64px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background: rgba(5, 8, 22, 0.8);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -361,4 +352,295 @@ body {
     linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
   background-size: 60px 60px;
+}
+
+/* ==============================
+   RESPONSIVE LAYOUT CLASSES
+   ============================== */
+
+/* Section padding — replaces inline padding on all sections */
+.section-padding {
+  padding: 20px 50px;
+}
+
+/* Hero two-column flex */
+.hero-flex {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 64px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.hero-left {
+  flex: 1 1 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.hero-right {
+  flex: 1 1 340px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Hero role subtitle */
+.hero-role {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #60a5fa;
+  letter-spacing: 0.04em;
+}
+
+/* Scroll indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Project card grid */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 24px;
+}
+
+/* Skills two-column grid */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 32px;
+}
+
+/* About two-column grid */
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 40px;
+}
+
+/* Contact bento grid */
+.contact-bento-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-auto-rows: minmax(160px, auto);
+  gap: 20px;
+}
+
+/* Bento wide card — spans 2 cols on desktop */
+.bento-wide {
+  grid-column: span 2;
+}
+
+/* Social icons grid */
+.social-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+/* Contact section heading */
+.contact-heading {
+  margin-top: 12px;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* Footer inner layout */
+.footer-inner {
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+/* ==============================
+   TABLET BREAKPOINT (≤ 1024px)
+   ============================== */
+
+@media (max-width: 1024px) {
+  .section-padding {
+    padding: 16px 32px;
+  }
+
+  .section-container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .navbar-inner {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .hero-flex {
+    gap: 40px;
+  }
+
+  .bg-blob-1 {
+    width: 400px;
+    height: 400px;
+  }
+
+  .bg-blob-2 {
+    width: 350px;
+    height: 350px;
+  }
+
+  .contact-heading {
+    font-size: 2rem;
+  }
+}
+
+/* ==============================
+   MOBILE BREAKPOINT (≤ 640px)
+   ============================== */
+
+@media (max-width: 640px) {
+  .section-padding {
+    padding: 12px 0px;
+  }
+
+  .section-container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .navbar-inner {
+    padding-left: 16px;
+    padding-right: 16px;
+    gap: 16px;
+  }
+
+  /* Hero */
+  .hero-flex {
+    flex-direction: column;
+    gap: 32px;
+    align-items: stretch;
+  }
+
+  .hero-left {
+    flex: 1 1 100%;
+    gap: 18px;
+  }
+
+  .hero-right {
+    flex: 1 1 100%;
+  }
+
+  .hero-role {
+    font-size: 1.1rem;
+  }
+
+  .scroll-indicator {
+    display: none;
+  }
+
+  /* Section heading */
+  .section-heading {
+    font-size: clamp(1.6rem, 5vw, 3.5rem);
+  }
+
+  /* Glass card */
+  .glass-card {
+    border-radius: 12px;
+  }
+
+  /* Code block */
+  .code-block {
+    padding: 16px;
+    font-size: 0.7rem;
+  }
+
+  /* Buttons */
+  .btn-gradient {
+    padding: 7px 10px;
+    font-size: 0.8rem;
+  }
+
+  .btn-outline {
+    padding: 8px 18px;
+    font-size: 0.8rem;
+  }
+
+  /* Grids — all go single column */
+  .skills-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .contact-bento-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bento-wide {
+    grid-column: span 1;
+  }
+
+  .social-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Project grid — tighter for small screens */
+  .project-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  /* Contact heading */
+  .contact-heading {
+    font-size: 1.6rem;
+  }
+
+  /* Footer */
+  .footer-inner {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 24px 16px;
+    gap: 12px;
+  }
+
+  /* Background blobs — shrink to prevent overflow */
+  .bg-blob-1 {
+    width: 300px;
+    height: 300px;
+    top: -150px;
+    right: -150px;
+  }
+
+  .bg-blob-2 {
+    width: 250px;
+    height: 250px;
+    left: -120px;
+  }
+
+  /* Tech badge */
+  .tech-badge {
+    padding: 4px 10px;
+    font-size: 0.7rem;
+  }
+
+  /* Section tag */
+  .section-tag {
+    font-size: 0.7rem;
+    padding: 3px 10px;
+  }
 }

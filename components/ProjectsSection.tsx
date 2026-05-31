@@ -19,8 +19,7 @@ export default function ProjectsSection() {
   return (
     <section
       id="projects"
-      className="relative grid-bg"
-      style={{ padding: "10px 50px" }}
+      className="relative grid-bg section-padding"
     >
       <div className="section-container">
         {/* Section header */}
@@ -94,13 +93,7 @@ export default function ProjectsSection() {
         </motion.div>
 
         {/* Project grid */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
-            gap: "24px",
-          }}
-        >
+        <div className="project-grid">
           {filtered.map((project, i) => (
             <motion.div
               key={project.heading}

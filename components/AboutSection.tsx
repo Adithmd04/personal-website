@@ -11,8 +11,7 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="relative grid-bg"
-      style={{ padding: "20px 50px" }}
+      className="relative grid-bg section-padding"
     >
       <div
         className="section-container"
@@ -44,13 +43,7 @@ export default function AboutSection() {
         </motion.div>
 
         {/* Two-column grid */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))",
-            gap: "40px",
-          }}
-        >
+        <div className="about-grid">
           {/* Left Column */}
           <div
             style={{ display: "flex", flexDirection: "column", gap: "25px" }}

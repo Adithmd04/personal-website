@@ -124,8 +124,7 @@ export default function SkillsSection() {
   return (
     <section
       id="skills"
-      className="relative grid-bg"
-      style={{ padding: "20px 50px" }}
+      className="relative grid-bg section-padding"
     >
       <div
         className="absolute inset-0 pointer-events-none"
@@ -165,13 +164,7 @@ export default function SkillsSection() {
         </motion.div>
 
         {/* Two-column grid */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))",
-            gap: "32px",
-          }}
-        >
+        <div className="skills-grid">
           {/* Left — Skills overview */}
           <motion.div
             className="glass-card"

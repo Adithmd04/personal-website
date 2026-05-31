@@ -36,8 +36,7 @@ const experienceYearCount =
   return (
     <section
       id="home"
-      className="relative min-h-screen grid-bg"
-      style={{padding: "10px 50px"}}
+      className="relative min-h-screen grid-bg section-padding"
     >
       {/* Radial glow */}
       <div
@@ -59,26 +58,10 @@ const experienceYearCount =
           paddingBottom: "80px",
         }}
       >
-        {/* Two-column flex */}
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            gap: "64px",
-            width: "100%",
-            flexWrap: "wrap",
-          }}
-        >
+        {/* Two-column flex — now using CSS class for responsive */}
+        <div className="hero-flex">
           {/* LEFT — Text */}
-          <div
-            style={{
-              flex: "1 1 380px",
-              display: "flex",
-              flexDirection: "column",
-              gap: "24px",
-            }}
-          >
+          <div className="hero-left">
             <motion.div
               custom={0}
               initial="hidden"
@@ -109,14 +92,7 @@ const experienceYearCount =
               animate="show"
               variants={fadeUp}
             >
-              <p
-                style={{
-                  fontSize: "1.4rem",
-                  fontWeight: 700,
-                  color: "#60a5fa",
-                  letterSpacing: "0.04em",
-                }}
-              >
+              <p className="hero-role">
                 {data.homePage.role.fieldOne} {data.homePage.role.fieldTwo}
               </p>
             </motion.div>
@@ -179,11 +155,7 @@ const experienceYearCount =
 
           {/* RIGHT — Code block */}
           <motion.div
-            style={{
-              flex: "1 1 340px",
-              display: "flex",
-              justifyContent: "center",
-            }}
+            className="hero-right"
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
@@ -288,18 +260,9 @@ const experienceYearCount =
         </div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll indicator — hidden on mobile via CSS */}
       <motion.div
-        style={{
-          position: "absolute",
-          bottom: "32px",
-          left: "50%",
-          transform: "translateX(-50%)",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "8px",
-        }}
+        className="scroll-indicator"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2 }}
@@ -327,3 +290,4 @@ const experienceYearCount =
     </section>
   );
 }
+
