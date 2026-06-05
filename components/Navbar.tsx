@@ -104,7 +104,7 @@ export default function Navbar() {
               className="flex items-center gap-2 cursor-pointer shrink-0"
               onClick={() => handleNav("#home", "Home")}
             >
-              <span className="font-mono text-sm font-bold text-white tracking-wider">
+              <span>
                 <Code size={24} />
               </span>
             </button>
@@ -127,9 +127,14 @@ export default function Navbar() {
             {/* CTA */}
             <div className="flex items-center gap-4 shrink-0">
               <button
-                onClick={() => handleNav("#contact", "Contact")}
-                className="btn-gradient text-xs text-white"
                 id="navbar-lets-talk-btn"
+                className="text-white text-sm cursor-pointer border-none tracking-tighter font-semibold"
+                style={{
+                  background: "linear-gradient(135deg, #7c3aed, #3b82f6)",
+                  padding: "6px 12px",
+                  borderRadius: "15px",
+                }}
+                onClick={() => handleNav("#contact", "Contact")}
               >
                 Let&apos;s Talk
               </button>

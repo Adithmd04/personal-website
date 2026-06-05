@@ -146,18 +146,7 @@ body {
 .btn-gradient {
   position: relative;
   background: var(--accent-gradient);
-  border-radius: 8px;
-  padding: 10px 24px;
-  font-weight: 600;
-  font-size: 0.875rem;
-  letter-spacing: 0.05em;
-  color: white;
-  cursor: pointer;
-  border: none;
   transition: all 0.3s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
 }
 
 .btn-gradient:hover {
@@ -562,12 +551,6 @@ body {
   .code-block {
     padding: 16px;
     font-size: 0.7rem;
-  }
-
-  /* Buttons */
-  .btn-gradient {
-    padding: 7px 10px;
-    font-size: 0.8rem;
   }
 
   .btn-outline {
