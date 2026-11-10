@@ -11,7 +11,7 @@ import Image from "next/image";
 import { useState } from "react";
 
 export default function ContactSection() {
-  const { email, linkedIn, github } = data.name;
+  const { email, linkedIn, github, phone } = data.name;
   const [copied, setCopied] = useState(false);
   const socialIcons = [
     {
@@ -37,7 +37,7 @@ export default function ContactSection() {
     },
     {
       logo: WhatsAppLogo,
-      href: `https://wa.me/+91`,
+      href: `https://wa.me/${phone}?text=Hi, I came across your portfolio and would like to connect.`,
       name: "WhatsApp",
       hoverColor: "rgba(16,185,129,0.4)",
       activeColor: "#34d399",
@@ -184,7 +184,8 @@ export default function ContactSection() {
               </h3>
             </div>
             <a
-              href={`mailto:${email}`}
+              href={`https://${linkedIn}`}
+              target="_blank"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -280,65 +281,6 @@ export default function ContactSection() {
               </button>
             </div>
           </motion.div>
-
-          {/* Card 3: Direct Call Box */}
-          {/* <motion.div
-              className="glass-card"
-              variants={itemVariants}
-              whileHover={{ y: -4 }}
-              style={{
-                padding: "28px",
-                background: "rgba(255,255,255,0.02)",
-                border: "1px solid rgba(255,255,255,0.05)",
-                borderRadius: "24px",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-              }}
-            >
-              <div
-                style={{
-                  width: 44,
-                  height: 44,
-                  borderRadius: "16px",
-                  background: "rgba(124,58,237,0.1)",
-                  border: "1px solid rgba(124,58,237,0.2)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Phone size={20} style={{ color: "#a78bfa" }} />
-              </div>
-              <div>
-                <p
-                  style={{
-                    fontSize: "0.75rem",
-                    fontWeight: 600,
-                    color: "rgba(255,255,255,0.4)",
-                    textTransform: "uppercase",
-                    letterSpacing: "0.1em",
-                    marginBottom: "6px",
-                  }}
-                >
-                  Call / Text Direct
-                </p>
-                <a
-                  href={`tel:${phone}`}
-                  style={{
-                    fontSize: "1.1rem",
-                    color: "#fff",
-                    textDecoration: "none",
-                    fontWeight: 600,
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "6px",
-                  }}
-                >
-                  {phone}
-                </a>
-              </div>
-            </motion.div> */}
 
           {/* Card 4: Asymmetric Social Grid Matrix */}
           <motion.div

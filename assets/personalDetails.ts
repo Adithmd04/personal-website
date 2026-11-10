@@ -3,7 +3,7 @@ export const data = {
     firstName: "ADITH",
     lastName: "M D",
     email: "adithdijikumar@gmail.com",
-    phone: "+91 8075051628",
+    phone: "918075051628",
     linkedIn: "www.linkedin.com/in/adithmd04",
     github: "github.com/Adithmd04",
   },
@@ -39,15 +39,14 @@ export const data = {
         type: "personal",
         technologies: ["React.js", "Next.js", "TypeScript", "Tailwind CSS"],
         links: [
-          { type: "Live", url: "" },
           { type: "Github", url: "" },
         ],
         tag: ["in-prod"],
       },
       {
-        heading: "XOX-multiplayer",
+        heading: "Tic-Tac-Toe Multiplayer Platform",
         type: "personal",
-        description: "",
+        description: "A real-time multiplayer Tic-Tac-Toe web application built with React.js, Next.js, TypeScript and Tailwind CSS.",
         technologies: [
           "React.js",
           "Next.js",
