@@ -1,357 +1,111 @@
 "use client";
 
-import { motion, Variants } from "framer-motion";
-import { Mail, Copy, Check, ArrowUpRight, Sparkles } from "lucide-react";
-import { data } from "@/assets/personalDetails";
-import GitHubLogo from "@/assets/icons/github.svg";
-import LinkedInLogo from "@/assets/icons/linkedin.svg";
-import InstagramLogo from "@/assets/icons/instagram.svg";
-import WhatsAppLogo from "@/assets/icons/whatsapp.svg";
-import Image from "next/image";
 import { useState } from "react";
+import { motion } from "framer-motion";
+import { ArrowUpRight, Check, Copy, Mail, MessageCircle } from "lucide-react";
+import { data } from "@/assets/personalDetails";
+
+const container =
+  "mx-auto w-[min(100%_-_56px,1160px)] max-md:w-[min(100%_-_38px,1160px)]";
+const sectionPad = "relative py-[clamp(88px,10vw,148px)] max-md:py-[84px]";
+const kicker =
+  "inline-flex items-center gap-2.5 font-mono text-[.66rem] leading-[1.2] font-[650] tracking-[.16em] uppercase text-accent [&>span]:text-subtle";
+const statusDot =
+  "size-[7px] rounded-full bg-[#a9e66a] shadow-[0_0_0_4px_rgba(169,230,106,.11)]";
 
 export default function ContactSection() {
   const { email, linkedIn, github, phone } = data.name;
   const [copied, setCopied] = useState(false);
-  const socialIcons = [
-    {
-      logo: GitHubLogo,
-      href: `https://${github}`,
-      name: "GitHub",
-      hoverColor: "rgba(124,58,237,0.4)",
-      activeColor: "#a78bfa",
-    },
-    {
-      logo: LinkedInLogo,
-      href: `https://${linkedIn}`,
-      name: "LinkedIn",
-      hoverColor: "rgba(59,130,246,0.4)",
-      activeColor: "#60a5fa",
-    },
-    {
-      logo: InstagramLogo,
-      href: `https://instagram.com`,
-      name: "Instagram",
-      hoverColor: "rgba(236,72,153,0.4)",
-      activeColor: "#f472b6",
-    },
-    {
-      logo: WhatsAppLogo,
-      href: `https://wa.me/${phone}?text=Hi, I came across your portfolio and would like to connect.`,
-      name: "WhatsApp",
-      hoverColor: "rgba(16,185,129,0.4)",
-      activeColor: "#34d399",
-    },
-  ];
-
   const copyToClipboard = async () => {
     try {
       await navigator.clipboard.writeText(email);
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error("Failed to copy text: ", err);
+      window.setTimeout(() => setCopied(false), 2200);
+    } catch (error) {
+      console.error("Failed to copy email", error);
     }
   };
-
-  // Animation variants for the Bento Box grid items
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1 },
+  const socials = [
+    { label: "GitHub", href: `https://${github}`, icon: Mail },
+    { label: "LinkedIn", href: `https://${linkedIn}`, icon: Mail },
+    {
+      label: "WhatsApp",
+      href: `https://wa.me/${phone}?text=Hi, I came across your portfolio and would like to connect.`,
+      icon: MessageCircle,
     },
-  };
-
-  const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 80 } },
-  };
-
+  ];
   return (
-    <section id="contact" className="relative grid-bg section-padding">
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <div
-          style={{
-            width: "400px",
-            height: "300px",
-            background: "rgba(124,58,237,0.08)",
-            filter: "blur(100px)",
-            borderRadius: "50%",
-          }}
-        />
-      </div>
-
-      <div
-        className="section-container"
-        style={{ position: "relative", zIndex: 10 }}
-      >
-        {/* Header */}
+    <section id="contact" className={`${sectionPad} bg-page`}>
+      <div className={container}>
         <motion.div
-          style={{ marginBottom: "20px" }}
-          initial={{ opacity: 0, y: 30 }}
+          className="relative isolate overflow-hidden border border-accent/25 bg-[linear-gradient(125deg,var(--bg-card),color-mix(in_srgb,var(--primary-color)_7%,var(--bg-card)))] 
+          p-[clamp(30px,6vw,75px)] max-md:px-5.25 max-md:py-6.75 after:absolute after:-right-22.5 after:-bottom-65 after:z-[-1] after:size-117.5 after:rounded-full after:border 
+          after:border-accent/20 after:content-[''] after:shadow-[0_0_0_40px_color-mix(in_srgb,var(--primary-color)_3%,transparent),0_0_0_80px_color-mix(in_srgb,var(--primary-color)_2%,transparent)]"
+          initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
         >
-          <h2 className="section-heading contact-heading">
-            {`Let's build something`}{" "}
-            <span style={{ color: "#a78bfa" }}>together</span>
+          <div className="flex items-center justify-between gap-5 max-md:flex-col max-md:items-start max-md:gap-4">
+            <span className={kicker}>
+              HAVE A GOOD ONE IN MIND? <span>/ 04</span>
+            </span>
+            <span className="flex items-center gap-2.25 font-mono text-[.59rem] font-semibold tracking-widest text-body">
+              <i className={statusDot} /> OPEN TO CONVERSATIONS
+            </span>
+          </div>
+
+          <h2 className="relative mt-16 text-[clamp(3.8rem,8.5vw,8rem)] leading-[.88] font-[650] tracking-[-.09em] text-ink max-md:mt-13 max-md:text-[clamp(3.35rem,15vw,5.4rem)]">
+            Let&apos;s make
+            <br />
+            <em className="not-italic text-accent">something matter.</em>
           </h2>
-        </motion.div>
 
-        {/* Bento Box Asymmetric Grid */}
-        <motion.div
-          className="contact-bento-grid"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.2 }}
-        >
-          {/* Card 1: Availability Status (Large Accent Card) */}
-          <motion.div
-            className="glass-card bento-wide"
-            variants={itemVariants}
-            whileHover={{ y: -4 }}
-            style={{
-              padding: "32px",
-              background: "rgba(255,255,255,0.02)",
-              border: "1px solid rgba(255,255,255,0.05)",
-              borderRadius: "24px",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-              position: "relative",
-              overflow: "hidden",
-            }}
-          >
-            <div
-              style={{
-                position: "absolute",
-                top: "20px",
-                right: "20px",
-                color: "rgba(124,58,237,0.4)",
-              }}
-            >
-              <Sparkles size={40} />
-            </div>
-            <div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "8px",
-                  marginBottom: "16px",
-                }}
-              >
-                <span
-                  style={{
-                    width: "10px",
-                    height: "10px",
-                    borderRadius: "50%",
-                    background: "#10b981",
-                    boxShadow: "0 0 12px #10b981",
-                  }}
-                />
-                <span
-                  style={{
-                    fontSize: "0.8rem",
-                    color: "#10b981",
-                    fontWeight: 600,
-                    letterSpacing: "0.05em",
-                  }}
-                >
-                  AVAILABLE FOR NEW PROJECTS
-                </span>
-              </div>
-              <h3
-                style={{
-                  fontSize: "1.6rem",
-                  color: "#fff",
-                  fontWeight: 600,
-                  lineHeight: 1.3,
-                  maxWidth: "80%",
-                }}
-              >
-                Have an idea? Drop a message and let’s connect.
-              </h3>
-            </div>
+          <p className="mt-6.75 max-w-117.5 text-[.91rem] leading-[1.8] text-body max-md:text-[.84rem]">
+            Have a project, an opportunity, or just want to exchange ideas? My
+            inbox is always open.
+          </p>
+
+          <div className="mt-8.5 flex items-center gap-3 max-md:flex-col max-md:items-stretch">
             <a
-              href={`https://${linkedIn}`}
-              target="_blank"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "6px",
-                color: "#a78bfa",
-                textDecoration: "none",
-                marginTop: "24px",
-                fontSize: "0.9rem",
-                fontWeight: 500,
-              }}
+              href={`mailto:${email}`}
+              className="inline-flex items-center gap-3.25 rounded-[7px] bg-accent px-4.25 py-3.5 text-[.81rem] font-[750] text-on-accent transition-colors hover:bg-cta-hover [&>svg:last-child]:ml-3 max-md:justify-between max-md:gap-2 max-md:text-[.72rem] max-md:[&>svg:last-child]:ml-auto"
             >
-              Start a conversation <ArrowUpRight size={16} />
+              <Mail size={18} /> {email} <ArrowUpRight size={19} />
             </a>
-          </motion.div>
-
-          {/* Card 2: Interactive Email Copy Box */}
-          <motion.div
-            className="glass-card"
-            variants={itemVariants}
-            whileHover={{ y: -4 }}
-            style={{
-              padding: "28px",
-              background: "rgba(255,255,255,0.02)",
-              border: "1px solid rgba(255,255,255,0.05)",
-              borderRadius: "24px",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-            }}
-          >
-            <div
-              style={{
-                width: 44,
-                height: 44,
-                borderRadius: "16px",
-                background: "rgba(124,58,237,0.1)",
-                border: "1px solid rgba(124,58,237,0.2)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
+            <button
+              className="inline-flex cursor-pointer items-center gap-2 rounded-[7px] border border-line bg-transparent px-3.75 py-3.25 text-[.75rem] text-body transition-colors hover:border-accent hover:text-accent max-md:justify-center"
+              onClick={copyToClipboard}
+              aria-label="Copy email address"
             >
-              <Mail size={20} style={{ color: "#a78bfa" }} />
-            </div>
-            <div style={{ marginTop: "20px" }}>
-              <p
-                style={{
-                  fontSize: "0.75rem",
-                  fontWeight: 600,
-                  color: "rgba(255,255,255,0.4)",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.1em",
-                  marginBottom: "6px",
-                }}
-              >
-                Drop an Email
-              </p>
-              <p
-                style={{
-                  fontSize: "0.95rem",
-                  color: "#cbd5e1",
-                  wordBreak: "break-all",
-                  fontWeight: 500,
-                  marginBottom: "14px",
-                }}
-              >
-                {email}
-              </p>
-              <button
-                style={{
-                  width: "100%",
-                  padding: "10px",
-                  borderRadius: "12px",
-                  background: copied
-                    ? "rgba(16,185,129,0.1)"
-                    : "rgba(255,255,255,0.04)",
-                  border: copied
-                    ? "1px solid rgba(16,185,129,0.3)"
-                    : "1px solid rgba(255,255,255,0.08)",
-                  color: copied ? "#10b981" : "#94a3b8",
-                  fontSize: "0.8rem",
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "8px",
-                  transition: "all 0.2s",
-                }}
-                onClick={copyToClipboard}
-              >
-                {copied ? <Check size={14} /> : <Copy size={14} />}
-                {copied ? "Copied!" : "Copy Address"}
-              </button>
-            </div>
-          </motion.div>
+              {copied ? <Check size={17} /> : <Copy size={17} />}
+              {copied ? "Copied" : "Copy"}
+            </button>
+          </div>
 
-          {/* Card 4: Asymmetric Social Grid Matrix */}
-          <motion.div
-            className="glass-card bento-wide"
-            variants={itemVariants}
-            style={{
-              padding: "28px",
-              background: "rgba(255,255,255,0.01)",
-              border: "1px solid rgba(255,255,255,0.05)",
-              borderRadius: "24px",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-            }}
-          >
-            <p
-              style={{
-                fontSize: "0.75rem",
-                fontWeight: 600,
-                color: "rgba(255,255,255,0.4)",
-                textTransform: "uppercase",
-                letterSpacing: "0.1em",
-                marginBottom: "16px",
-              }}
-            >
-              Socials
-            </p>
-            <div className="social-grid">
-              {socialIcons?.map((social, index) => (
-                <motion.a
-                  key={index}
-                  href={social.href}
+          <div className="mt-20 flex items-center justify-between gap-5 border-t border-line pt-5 max-md:mt-12.5 max-md:flex-col max-md:items-start">
+            <span className="font-mono text-[.58rem] font-semibold tracking-[.13em] text-subtle">
+              FIND ME ELSEWHERE
+            </span>
+            <div className="flex flex-wrap gap-5.5 max-md:gap-3.75">
+              {socials.map(({ label, href, icon: Icon }) => (
+                <a
+                  key={label}
+                  href={href}
                   target="_blank"
-                  rel="noreferrer"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  style={{
-                    height: "70px",
-                    borderRadius: "16px",
-                    background: "rgba(255,255,255,0.03)",
-                    border: "1px solid rgba(255,255,255,0.06)",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: "6px",
-                    textDecoration: "none",
-                    transition: "border-color 0.2s",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = social.hoverColor;
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor =
-                      "rgba(255,255,255,0.06)";
-                  }}
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.75 text-[.72rem] text-body hover:text-accent"
                 >
-                  <Image
-                    src={social.logo}
-                    alt={social.name}
-                    width={20}
-                    height={20}
-                    style={{ filter: "brightness(0) invert(1)" }}
-                  />
-                  <span style={{ fontSize: "0.65rem", color: "#94a3b8" }}>
-                    {social.name}
-                  </span>
-                </motion.a>
+                  <Icon size={16} /> {label} <ArrowUpRight size={13} />
+                </a>
               ))}
             </div>
-          </motion.div>
+          </div>
+          <span
+            className="absolute top-[38%] right-5 z-[-1] text-[clamp(8rem,19vw,18rem)] 
+          leading-none font-extrabold tracking-[-.12em] text-ink/3 max-md:top-[42%] max-md:right-0 max-md:text-[8rem]"
+          >
+            HELLO.
+          </span>
         </motion.div>
       </div>
     </section>

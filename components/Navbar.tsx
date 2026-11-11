@@ -1,26 +1,24 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { Home, FolderCode, User, Code, Mail, Zap } from "lucide-react";
+import { Home, FolderCode, UserRound, Code2, Mail, Zap } from "lucide-react";
 import { data } from "@/assets/personalDetails";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const navLinks = [
   { label: data.navbar.home, href: "#home", icon: Home },
   { label: data.navbar.projects, href: "#projects", icon: FolderCode },
   { label: data.navbar.skills, href: "#skills", icon: Zap },
-  { label: data.navbar.about, href: "#about", icon: User },
+  { label: data.navbar.about, href: "#about", icon: UserRound },
   { label: "Contact", href: "#contact", icon: Mail },
 ];
-
 const sections = ["home", "projects", "skills", "about", "contact"];
-
 function getActiveSection() {
   for (const id of [...sections].reverse()) {
-    const el = document.getElementById(id);
-    if (el && window.scrollY >= el.offsetTop - 100) {
+    const element = document.getElementById(id);
+    if (element && window.scrollY >= element.offsetTop - 180)
       return id.charAt(0).toUpperCase() + id.slice(1);
-    }
   }
   return "Home";
 }
@@ -30,171 +28,98 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const isNavigating = useRef(false);
   const scrollEndTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
   useEffect(() => {
-    const endNavigation = () => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 24);
+      if (!isNavigating.current) setActive(getActiveSection());
+    };
+    const handleScrollEnd = () => {
+      if (scrollEndTimer.current) clearTimeout(scrollEndTimer.current);
       isNavigating.current = false;
       setActive(getActiveSection());
     };
-
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-      if (!isNavigating.current) {
-        setActive(getActiveSection());
-      }
-    };
-
-    const handleScrollEnd = () => {
-      if (scrollEndTimer.current) {
-        clearTimeout(scrollEndTimer.current);
-        scrollEndTimer.current = null;
-      }
-      endNavigation();
-    };
-
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("scrollend", handleScrollEnd);
-
     return () => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("scrollend", handleScrollEnd);
       if (scrollEndTimer.current) clearTimeout(scrollEndTimer.current);
     };
   }, []);
-
   const handleNav = (href: string, label: string) => {
     if (scrollEndTimer.current) clearTimeout(scrollEndTimer.current);
     isNavigating.current = true;
     setActive(label);
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth" });
-      // Fallback for browsers without scrollend
-      scrollEndTimer.current = setTimeout(() => {
-        scrollEndTimer.current = null;
-        isNavigating.current = false;
-        setActive(getActiveSection());
-      }, 1000);
-    } else {
+    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+    scrollEndTimer.current = setTimeout(() => {
       isNavigating.current = false;
-    }
+      setActive(getActiveSection());
+    }, 1100);
   };
-
   return (
     <>
-      {/* Desktop & Tablet Navbar */}
-      <div className="hidden md:flex fixed top-3 left-0 right-0 z-50 justify-center w-full">
+      <div className="pointer-events-none fixed inset-x-0 top-4.5 z-100 hidden justify-center px-6 md:flex">
         <motion.nav
-          className="navbar md:w-[75%] lg:w-[60%] h-12 flex justify-center items-center"
-          initial={{ y: -80, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          style={{
-            boxShadow: scrolled ? "0 4px 30px rgba(0,0,0,0.4)" : "none",
-            backdropFilter: "blur(12px)",
-            WebkitBackdropFilter: "blur(12px)",
-            backgroundColor: "rgba(255, 255, 255, 0.05)",
-            borderRadius: "9999px",
-            border: "1px solid rgba(255, 255, 255, 0.1)",
-          }}
+          className={`pointer-events-auto flex min-h-16.5 w-[min(100%,1050px)] items-center justify-between gap-6 rounded-2xl border border-line bg-page/88 py-0 pr-4.5 pl-5.5 backdrop-blur-[22px] transition-[background-color,box-shadow] duration-300 ${scrolled ? "shadow-[0_18px_60px_rgba(0,0,0,.24)]" : "shadow-[0_10px_50px_rgba(0,0,0,.12)]"}`}
+          initial={{ opacity: 0, y: -18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55 }}
         >
-          <div className="navbar-inner">
-            {/* Logo */}
-            <button
-              className="flex items-center gap-2 cursor-pointer shrink-0"
-              onClick={() => handleNav("#home", "Home")}
-            >
-              <span>
-                <Code size={24} />
-              </span>
-            </button>
-
-            {/* Desktop nav links */}
-            <div className="flex flex-1 justify-center items-center gap-8">
-              {navLinks
-                .filter((link) => link.label !== "Contact")
-                .map((link) => (
-                  <button
-                    key={link.label}
-                    onClick={() => handleNav(link.href, link.label)}
-                    className={`nav-link ${active === link.label ? "active" : ""}`}
-                  >
-                    {link.label}
-                  </button>
-                ))}
-            </div>
-
-            {/* CTA */}
-            <div className="flex items-center gap-4 shrink-0">
-              <button
-                id="navbar-lets-talk-btn"
-                className="text-white text-sm cursor-pointer border-none tracking-tighter font-semibold"
-                style={{
-                  background: "linear-gradient(135deg, #7c3aed, #3b82f6)",
-                  padding: "6px 12px",
-                  borderRadius: "15px",
-                }}
-                onClick={() => handleNav("#contact", "Contact")}
-              >
-                Let&apos;s Talk
-              </button>
-            </div>
-          </div>
-        </motion.nav>
-      </div>
-
-      {/* Mobile Floating Glassmorphic Dock */}
-      <div className="md:hidden fixed bottom-6 left-0 right-0 z-50 flex justify-center px-4 w-full">
-        <motion.nav
-          className="w-full max-w-sm h-16 flex items-center justify-around px-2 relative"
-          initial={{ y: 80, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          style={{
-            boxShadow: scrolled ? "0 4px 30px rgba(0,0,0,0.4)" : "none",
-            backdropFilter: "blur(16px)",
-            WebkitBackdropFilter: "blur(16px)",
-            backgroundColor: "rgba(255, 255, 255, 0.04)",
-            borderRadius: "9999px",
-            border: "1px solid rgba(255, 255, 255, 0.08)",
-          }}
-        >
-          {navLinks.map((link) => {
-            const IconComponent = link.icon;
-            const isActive = active === link.label;
-
-            return (
+          <button
+            className="inline-flex cursor-pointer items-center gap-2.5 bg-transparent text-ink"
+            onClick={() => handleNav("#home", "Home")}
+            aria-label="Go to home"
+          >
+            <span className="grid size-8.5 place-items-center rounded-[10px] bg-accent text-on-accent">
+              <Code2 size={19} />
+            </span>
+            <b className="text-[.85rem] tracking-[.08em]">
+              {data.name.firstName}
+              <i className="not-italic text-accent">.</i>
+            </b>
+          </button>
+          <div className="flex items-center gap-[clamp(16px,3vw,34px)]">
+            {navLinks.map((link) => (
               <button
                 key={link.label}
                 onClick={() => handleNav(link.href, link.label)}
-                className="relative flex items-center justify-center w-12 h-12 rounded-full focus:outline-none transition-colors duration-300 group z-10"
+                className={`relative cursor-pointer py-2.5 text-[.78rem] font-[550] transition-colors duration-200 ${active === link.label ? "text-ink after:absolute after:inset-x-0 after:bottom-0.5 after:h-0.5 after:rounded-sm after:bg-accent after:content-['']" : "text-subtle hover:text-ink"}`}
               >
-                {/* Active Indicator Slide Overlay */}
-                {isActive && (
-                  <motion.div
-                    layoutId="mobileActivePill"
-                    className="absolute inset-0 rounded-full"
-                    style={{
-                      backgroundColor: "rgba(255, 255, 255, 0.12)",
-                      border: "1px solid rgba(255, 255, 255, 0.05)",
-                    }}
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
-                )}
-
-                {/* Navigation Icon */}
-                <IconComponent
-                  size={22}
-                  strokeWidth={isActive ? 2.5 : 1.75}
-                  className={`transition-all duration-300 ${
-                    isActive
-                      ? "text-white scale-105"
-                      : "text-white/50 group-hover:text-white/80"
-                  }`}
-                />
+                {link.label}
               </button>
-            );
-          })}
+            ))}
+          </div>
+          <div className="flex items-center gap-3">
+            <ThemeToggle />
+            <button
+              id="navbar-lets-talk-btn"
+              className="flex cursor-pointer items-center gap-4 rounded-[10px] bg-accent px-4 py-2.75 text-[.78rem] font-[750] text-on-accent transition-[transform,background-color] duration-200 hover:-translate-y-0.5 hover:bg-cta-hover"
+              onClick={() => handleNav("#contact", "Contact")}
+            >
+              Let&apos;s talk <span className="text-base">↗</span>
+            </button>
+          </div>
+        </motion.nav>
+      </div>
+      <div className="fixed inset-x-0 bottom-[max(12px,env(safe-area-inset-bottom))] z-100 flex justify-center px-3 md:hidden">
+        <motion.nav
+          className="flex min-h-16.5 w-[min(100%,430px)] items-center justify-around gap-0.5 rounded-[15px] border border-line bg-page/91 p-1.75 shadow-[0_12px_45px_rgba(0,0,0,.25)] backdrop-blur-[22px]"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          {navLinks.map(({ label, href, icon: Icon }) => (
+            <button
+              key={label}
+              onClick={() => handleNav(href, label)}
+              className={`flex min-h-12 min-w-11.5 cursor-pointer flex-col items-center justify-center gap-1 rounded-[9px] ${active === label ? "bg-accent/12 text-accent" : "text-subtle"}`}
+              aria-label={label}
+            >
+              <Icon size={19} />
+              <span className="text-[.53rem]">{label}</span>
+            </button>
+          ))}
+          <ThemeToggle />
         </motion.nav>
       </div>
     </>
